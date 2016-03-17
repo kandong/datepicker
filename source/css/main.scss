@@ -1,0 +1,214 @@
+@font-face {
+  font-family: 'fontello';
+  src: url('font/fontello.eot?95150769');
+  src: url('font/fontello.eot?95150769#iefix') format('embedded-opentype'),
+       url('font/fontello.woff2?95150769') format('woff2'),
+       url('font/fontello.woff?95150769') format('woff'),
+       url('font/fontello.ttf?95150769') format('truetype'),
+       url('font/fontello.svg?95150769#fontello') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+ [class^="icon-"]:before, [class*=" icon-"]:before {
+  font-family: "fontello";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+
+  display: inline-block;
+  text-decoration: inherit;
+  text-align: center;
+  font-variant: normal;
+  text-transform: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  cursor: pointer;
+}
+ 
+.icon-calendar:before { content: '\63'; } /* 'c' */
+.icon-left-open:before { content: '\6c'; } /* 'l' */
+.icon-right-open:before { content: '\72'; } /* 'r' */
+
+$primary-color: #E37667;
+$accent-color: #43A047;
+$alert-color: #b94a48;
+$lightest-grey: #f2f2f2;
+$light-grey: #e0e0e0;
+$med-grey: #999;
+$dark-grey: #323a45;
+
+*, *:before, *:after {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+}
+
+.header {
+  margin-bottom: 0;
+  text-transform: capitalize;
+  + p {
+    margin-bottom: 1.5em;
+  }
+}
+
+.field-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $primary-color;
+  padding: 5px;
+  .input-field {
+    border: none;
+    flex: 1;
+    &.error {
+      border-color: $alert-color;
+    }
+  }
+}
+
+.disabled {  
+  color: #E0E0E0;
+  &, &:before {
+    cursor: default !important;
+  }
+}
+
+.hide {
+  visibility: hidden;
+}
+
+.show {
+  visibility: visible;
+}
+
+.alert {
+  font-size: 0.85em;
+  height: 1.2em;
+  color: $alert-color;
+}
+
+#datepicker {
+	display: flex;
+	justify-content: center;
+	height: 100vh;
+}
+
+.date-picker {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 23em;
+  font-family: Arial;
+  color: $dark-grey;
+  .field-group {
+    border-radius: 5px 5px 0 0;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  .input-field {
+    font-size: 1.25em;
+    padding: 0.5em;
+    outline: none;
+  }
+  .icon-calendar {
+    font-size: 1.5em;
+    margin: 0 8px 0 13px;
+    color: white;
+    &:hover {
+      text-shadow: 1px 1px 5px rgba(0,0,0,0.3);
+    }
+  }
+  .calendar {
+    padding: 1em;
+    color: #244152;
+    background: $lightest-grey;
+    border-radius: 0 0 5px 5px;
+    overflow: hidden;
+    &.show {
+      visibility: visible;
+      opacity: 1;
+      transition: opacity 0.1s linear;
+    }
+    &.hide {
+      visibility: hidden;
+      opacity: 0;
+      transition: visibility 0s 0.1s, opacity 0.1s linear;
+    }
+    .month-header {
+      display: flex;
+      justify-content: space-between;
+    }
+    .week-header {
+      display: flex;
+      justify-content: space-around;
+      margin: 1em 0;
+      padding-bottom: 0.5em;
+      border-bottom: 1px solid $light-grey;
+      & > span {
+        font-size: 0.7em;
+        font-weight: 600;
+        text-transform: uppercase;
+        text-align: center;
+        color: $med-grey;
+      }
+    }
+    .weeks-body {
+      overflow: hidden;
+      position: relative;
+      height: 140px;
+      & > div {
+        position: absolute;
+        width: 100%;
+        &.current {
+          left: 0;
+        }
+        &.duplicate {
+          left: 100%;
+        }
+        &.duplicate.right {
+          left: -100%;
+        }
+        &.transitioning {
+          transition: transform 250ms ease;
+        }
+        &.transitioning.left {
+          transform: translate3d(-100%, 0, 0);
+        }
+        &.transitioning.right {
+          transform: translate3d(100%, 0, 0);
+        }
+      }
+      .week {
+        display: flex;
+        justify-content: space-around;
+        .day {
+          width: 100%;
+          padding: 5px 0;
+          border-radius: 5px;
+          text-align: center;
+          cursor: pointer;
+          &:hover {
+            background: $light-grey;
+          }
+          &.disabled {
+            &:hover {
+              background: transparent !important;
+            }
+          }
+          &.today {
+            color: white;
+            background: $accent-color;
+          }
+          &.selected {
+            color: white;
+            background: $primary-color;
+          }
+        }
+      }
+    }
+  }
+}
